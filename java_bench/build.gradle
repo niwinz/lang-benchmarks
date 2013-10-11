@@ -1,0 +1,24 @@
+apply plugin:'application'
+mainClassName = 'test.App'
+
+project.group = "test"
+project.version = "1.0"
+
+archivesBaseName = "bench"
+manifest.mainAttributes("Main-Class" : "test.App")
+
+sourceCompatibility=1.7
+targetCompatibility=1.7
+
+repositories {
+    mavenCentral()
+}
+
+task uberjar(type: Jar) {
+    from files(sourceSets.main.output.classesDir)
+    from configurations.runtime.asFileTree.files.collect { zipTree(it) }
+
+    manifest {
+        attributes 'Main-Class': 'test.App'
+    }
+}
