@@ -27,7 +27,7 @@ task uberjar(type: Jar) {
 }
 
 task run(type: JavaExec, dependsOn: classes) {
-    main = 'test.SampleApp'
+    main = 'SampleApp'
     classpath sourceSets.main.runtimeClasspath
     classpath configurations.runtime
 }

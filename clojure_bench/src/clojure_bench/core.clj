@@ -11,8 +11,6 @@
 (defn make-calls [^Integer n, func] (vec (take n (repeatedly func))))
 (defn generate-random-list [^Integer x] (make-calls x #(rand-int 100)))
 
-(def test-list (make-calls 10 #(generate-random-list 2)))
-
 (defn reducer
   [x, y]
   (if (vector? y)
@@ -40,8 +38,6 @@
   [& args]
   (let [test-list (make-calls 100 #(generate-random-list 500))]
     (bench "Clojure 01"
-      (bench-fn1 test-list))
-    (bench "Clojure 02"
       (bench-fn2 test-list))
-    (bench "Clojure 03"
+    (bench "Clojure 02"
       (bench-fn3 test-list))))
