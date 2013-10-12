@@ -1,0 +1,33 @@
+apply plugin: 'scala'
+
+project.group = "test"
+project.version = "1.0"
+
+archivesBaseName = "bench"
+manifest.mainAttributes("Main-Class" : "SimpleApp")
+
+sourceCompatibility=1.7
+targetCompatibility=1.7
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'org.scala-lang:scala-library:2.10.1'
+}
+
+task uberjar(type: Jar) {
+    from files(sourceSets.main.output.classesDir)
+    from configurations.runtime.asFileTree.files.collect { zipTree(it) }
+
+    manifest {
+        attributes 'Main-Class': 'SimpleApp'
+    }
+}
+
+task run(type: JavaExec, dependsOn: classes) {
+    main = 'test.SampleApp'
+    classpath sourceSets.main.runtimeClasspath
+    classpath configurations.runtime
+}

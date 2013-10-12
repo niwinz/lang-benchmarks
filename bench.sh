@@ -12,4 +12,3 @@ echo "Benchmarking..."
 $JAVA_BIN $JAVA_OPTS -jar groovy_bench/build/libs/bench-1.0.jar
 $JAVA_BIN $JAVA_OPTS -jar java_bench/build/libs/bench-1.0.jar
 $JAVA_BIN $JAVA_OPTS -jar clojure_bench/target/clojure_bench-0.1.0-standalone.jar
-
