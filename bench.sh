@@ -1,6 +1,6 @@
 #!/bin/bash
 
-JAVA_OPTS="-XX:+TieredCompilation -XX:TieredStopAtLevel=1 -Xmx6g -server"
+JAVA_OPTS="-XX:+TieredCompilation -XX:TieredStopAtLevel=1 -Xmx6g -Xms6g -XX:+UseFastAccessorMethods -XX:+AggressiveOpts" # -XX:+UseG1GC"
 JAVA_BIN="/usr/bin/java"
 
 echo "Building..."
