@@ -2,46 +2,63 @@ package test;
 
 import java.util.Random;
 import java.util.ArrayList;
+import java.util.List;
 
 public class App {
-    static ArrayList<Integer> generateRandomList(int num) {
+    private static int NUM_LISTS = 100;
+    private static int NUM_NUMBERS = 500;
+
+    private List<List<Integer>> testList;
+
+    /*
+     * Auxiliary methods to generate random lists
+     */
+    static List<Integer> generateRandomList(int num) {
         Random rand = new Random();
-        ArrayList<Integer> list = new ArrayList<Integer>();
+        List<Integer> list = new ArrayList<Integer>(num);
 
         for(int i=0; i <= num; i++) {
-            list.add(rand.nextInt(num+1));
+            int nextInt = rand.nextInt(num+1);
+            list.add(nextInt);
         }
 
         return list;
     }
 
-    static ArrayList<ArrayList<Integer>> getTestList() {
-        ArrayList<ArrayList<Integer>> list = new ArrayList<ArrayList<Integer>>();
+    static List<List<Integer>> getTestList() {
+        List<List<Integer>> list = new ArrayList<List<Integer>>(NUM_LISTS);
 
-        for(int i=0; i <= 100; i++) {
-            list.add(generateRandomList(500));
+        for(int i=0; i <= NUM_LISTS; i++) {
+            list.add(generateRandomList(NUM_NUMBERS));
         }
 
         return list;
     }
 
-    static void benchFn1(ArrayList<ArrayList<Integer>> data) {
-        long start = System.nanoTime();
+    /*
+     * Program code
+     */
+    public App(List<List<Integer>> testList) {
+        this.testList = testList;
+    }
+
+    public long calculateSum() {
         long total = 0;
 
-        for(int i=0; i < data.size(); i++) {
-            ArrayList<Integer> list = data.get(i);
-
-            for(int y=0; y < list.size(); y++) {
-                total = total + list.get(y);
+        for(List<Integer> curList: testList) {
+            for(Integer curNumber: curList) {
+                total = total + curNumber;
             }
         }
 
-        System.out.println("[Java 01]    Elapsed time: " + ((System.nanoTime() - start) / 1000000.0 ) + " msecs ( Result: " + total + " )");
+        return total;
     }
 
     public static void main(String[] args) {
-        ArrayList<ArrayList<Integer>> testList = getTestList();
-        benchFn1(testList);
+        List<List<Integer>> testList = getTestList();
+        long start = System.nanoTime();
+        App app = new App(testList);
+        long total = app.calculateSum();
+        System.out.println("[Java 01]    Elapsed time: " + ((System.nanoTime() - start) / 1000000.0 ) + " msecs ( Result: " + total + " )");
     }
 }
