@@ -25,8 +25,12 @@ public class App {
     }
 
     int benchFn1(data) {
-        ArrayList<Integer> sum1 = data.collect { it.inject(0) { acc, val -> acc + val } }
-        return sum1.inject(0) { acc, val -> acc + val }
+        return data.collect({ it.sum() }).sum()
+    }
+
+
+    int benchFn2(data) {
+        return data.flatten().sum()
     }
 
     public static void main(String[] args) {
@@ -36,5 +40,10 @@ public class App {
         long start = System.nanoTime()
         int result = appInstance.benchFn1(testList)
         println("[Groovy 01]  Elapsed time: " + ((System.nanoTime() - start) / 1000000.0 ) + " msecs ( Result: " + result + " )")
+
+        start = System.nanoTime()
+        result = appInstance.benchFn2(testList)
+        println("[Groovy 02]  Elapsed time: " + ((System.nanoTime() - start) / 1000000.0 ) + " msecs ( Result: " + result + " )")
+
     }
 }
