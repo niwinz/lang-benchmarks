@@ -7,4 +7,4 @@ java_bench/.gradle
 
 scala_bench/build/*
 scala_bench/.gradle
-
+javascript_bench/node_modules

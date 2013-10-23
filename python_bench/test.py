@@ -10,9 +10,9 @@ def bench(func):
     name = ""
 
     if "pypy" in sys.version.lower():
-        name = "PyPy 01"
+        name = "PyPy 01 ! Array Sum"
     else:
-        name = "Python{} 01".format(sys.version[0])
+        name = "Python{} 01 ! Array Sum".format(sys.version[0])
 
     def _wrapper(*args, **kwargs):
         t = datetime.datetime.now()

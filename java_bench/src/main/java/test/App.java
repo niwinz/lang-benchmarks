@@ -59,6 +59,6 @@ public class App {
         long start = System.nanoTime();
         App app = new App(testList);
         long total = app.calculateSum();
-        System.out.println("[Java 01]    Elapsed time: " + ((System.nanoTime() - start) / 1000000.0 ) + " msecs ( Result: " + total + " )");
+        System.out.println("[Java 01 ! Array Sum]    Elapsed time: " + ((System.nanoTime() - start) / 1000000.0 ) + " msecs ( Result: " + total + " )");
     }
 }

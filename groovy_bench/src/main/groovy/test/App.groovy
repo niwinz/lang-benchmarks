@@ -39,11 +39,10 @@ public class App {
 
         long start = System.nanoTime()
         int result = appInstance.benchFn1(testList)
-        println("[Groovy 01]  Elapsed time: " + ((System.nanoTime() - start) / 1000000.0 ) + " msecs ( Result: " + result + " )")
+        println("[Groovy 01 ! Array Sum]  Elapsed time: " + ((System.nanoTime() - start) / 1000000.0 ) + " msecs ( Result: " + result + " )")
 
         start = System.nanoTime()
         result = appInstance.benchFn2(testList)
-        println("[Groovy 02]  Elapsed time: " + ((System.nanoTime() - start) / 1000000.0 ) + " msecs ( Result: " + result + " )")
-
+        println("[Groovy 02 ! Array Sum]  Elapsed time: " + ((System.nanoTime() - start) / 1000000.0 ) + " msecs ( Result: " + result + " )")
     }
 }

@@ -63,13 +63,13 @@
   "I don't do a whole lot ... yet."
   [& args]
   (let [test-list (make-calls 100 #(generate-random-list 500))]
-    (bench "Clojure 01"
+    (bench "Clojure 01 ! Array Sum"
       (bench-fn1 test-list))
-    (bench "Clojure 02"
+    (bench "Clojure 02 ! Array Sum"
       (bench-fn2 test-list))
-    (bench "Clojure 03"
+    (bench "Clojure 03 ! Array Sum"
       (bench-fn3 test-list))
-    (bench "Clojure 04"
+    (bench "Clojure 04 ! Array Sum"
       (bench-fn4 test-list))
-    (bench "Clojure 05"
+    (bench "Clojure 05 ! Array Sum"
       (bench-fn5 test-list))))
