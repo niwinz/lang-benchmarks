@@ -4,6 +4,8 @@ import java.util.Random
 
 public class App {
 
+    static final Double TIME_FRACTION = 1000000.0
+
     List<Integer> generateRandomList(num) {
 
         Random rand = new Random()
@@ -45,11 +47,15 @@ public class App {
 
         long start = System.nanoTime()
         int result = appInstance.benchFn1(testList)
-        println("[Groovy 01 ! Array Sum]  Elapsed time: " + ((System.nanoTime() - start) / 1000000.0 ) + " msecs ( Result: " + result + " )")
+        long end = (System.nanoTime() - start) / TIME_FRACTION
+
+        println("[Groovy 01 ! Array Sum]  Elapsed time: $end msecs ( Result: $result )")
 
         start = System.nanoTime()
         result = appInstance.benchFn2(testList)
-        println("[Groovy 02 ! Array Sum]  Elapsed time: " + ((System.nanoTime() - start) / 1000000.0 ) + " msecs ( Result: " + result + " )")
+        end = (System.nanoTime() - start) / TIME_FRACTION
+
+        println("[Groovy 02 ! Array Sum]  Elapsed time: $end msecs ( Result: $result )")
 
     }
 
