@@ -3,25 +3,30 @@ package test
 import java.util.Random
 
 public class App {
-    ArrayList<Integer> generateRandomList(num) {
+
+    List<Integer> generateRandomList(num) {
+
         Random rand = new Random()
-        ArrayList<Integer> list = new ArrayList<Integer>()
+        List<Integer> list = new ArrayList<Integer>()
 
         (1..num).each {
             list << rand.nextInt(num+1)
         }
 
         return list
+
     }
 
-    ArrayList<ArrayList<Integer>> getTestList() {
-        ArrayList<ArrayList<Integer>> list = new ArrayList<ArrayList<Integer>>()
+    List<ArrayList<Integer>> getTestList() {
+
+        List<List<Integer>> list = new ArrayList<List<Integer>>()
 
         (1..100).each {
             list << generateRandomList(500)
         }
 
         return list
+
     }
 
     int benchFn1(data) {
@@ -34,8 +39,9 @@ public class App {
     }
 
     public static void main(String[] args) {
+
         App appInstance = new App()
-        ArrayList<ArrayList<Integer>> testList = appInstance.getTestList()
+        List<List<Integer>> testList = appInstance.getTestList()
 
         long start = System.nanoTime()
         int result = appInstance.benchFn1(testList)
@@ -44,5 +50,7 @@ public class App {
         start = System.nanoTime()
         result = appInstance.benchFn2(testList)
         println("[Groovy 02 ! Array Sum]  Elapsed time: " + ((System.nanoTime() - start) / 1000000.0 ) + " msecs ( Result: " + result + " )")
+
     }
+
 }
