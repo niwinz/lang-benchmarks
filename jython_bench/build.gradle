@@ -1,0 +1,39 @@
+apply plugin: 'application'
+
+mainClassName = "org.python.util.JarRunner"
+project.group = "test"
+project.version = "1.0"
+archivesBaseName = "bench"
+
+manifest.mainAttributes("Main-Class" : "org.python.util.JarRunner")
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'org.python:jython-standalone:2.7-b1'
+}
+
+def findJar(prefix) {
+    "" + configurations.runtime.find { it.name.startsWith(prefix) }
+}
+
+task extractJython(type:Tar) {
+    def jython = findJar("jython-standalone")
+
+    copy {
+        from(zipTree(jython))
+        into(sourceSets.main.output.classesDir)
+    }
+}
+
+task uberjar(type: Jar) {
+    // from files(sourceSets.main.output.classesDir)
+    from "__run__.py"
+    from configurations.runtime.asFileTree.files.collect { zipTree(it) }
+
+    manifest {
+        attributes 'Main-Class': 'org.python.util.JarRunner'
+    }
+}

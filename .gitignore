@@ -3,6 +3,8 @@ groovy_bench/build/*
 java_bench/build/*
 groovy_bench/.gradle
 java_bench/.gradle
+jython_bench/.gradle
+jython_bench/build/*
 
 
 scala_bench/build/*
