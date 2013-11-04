@@ -12,12 +12,14 @@ echo "Building..."
 (cd groovy_bench; gradle build uberjar)
 (cd java_bench; gradle build uberjar)
 (cd clojure_bench; lein uberjar)
+(cd jython_bench; gradle uberjar)
 (cd javascript_bench; npm install)
 
 echo "Benchmarking..."
 $JAVA_BIN $JAVA_OPTS -jar groovy_bench/build/libs/bench-1.0.jar
 $JAVA_BIN $JAVA_OPTS -jar java_bench/build/libs/bench-1.0.jar
 $JAVA_BIN $JAVA_OPTS -jar clojure_bench/target/clojure_bench-0.1.0-standalone.jar
+$JAVA_BIN $JAVA_OPTS -jar jython_bench/build/libs/bench-1.0.jar
 $PYTHON2_BIN python_bench/test.py
 $PYTHON3_BIN python_bench/test.py
 $PYPY_BIN python_bench/test.py
