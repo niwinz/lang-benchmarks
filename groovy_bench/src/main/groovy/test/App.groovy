@@ -1,61 +1,34 @@
 package test
 
-import java.util.Random
+import static System.nanoTime
 
-public class App {
+class App {
 
-    static final Double TIME_FRACTION = 1000000.0
+    static final TIME_FRACTION = 1000000.0
+    static final LIST = (1..50000).collect { new Random().nextInt(it + 1) }.collate(500)
 
-    List<Integer> generateRandomList(num) {
-
-        Random rand = new Random()
-        List<Integer> list = new ArrayList<Integer>()
-
-        (1..num).each {
-            list << rand.nextInt(num+1)
-        }
-
-        return list
-
+    static Integer benchFn1(data) {
+        return data*.sum().sum()
     }
 
-    List<ArrayList<Integer>> getTestList() {
-
-        List<List<Integer>> list = new ArrayList<List<Integer>>()
-
-        (1..100).each {
-            list << generateRandomList(500)
-        }
-
-        return list
-
-    }
-
-    int benchFn1(data) {
-        return data.collect({ it.sum() }).sum()
-    }
-
-
-    int benchFn2(data) {
+    static Integer benchFn2(data) {
         return data.flatten().sum()
+    }
+
+    static Integer benchFn3(data) {
+        return data.sum{ it.sum() }
     }
 
     public static void main(String[] args) {
 
-        App appInstance = new App()
-        List<List<Integer>> testList = appInstance.getTestList()
+        def doBenchmark = { Integer order, Closure execution, List data ->
+            def start = nanoTime()
+            def result = execution(data)
+            def end = (nanoTime() - start) / TIME_FRACTION
+            println "[Groovy $order ! Array Sum]  Elapsed time: $end msecs ( Result: $result )"
+        }
 
-        long start = System.nanoTime()
-        int result = appInstance.benchFn1(testList)
-        long end = (System.nanoTime() - start) / TIME_FRACTION
-
-        println("[Groovy 01 ! Array Sum]  Elapsed time: $end msecs ( Result: $result )")
-
-        start = System.nanoTime()
-        result = appInstance.benchFn2(testList)
-        end = (System.nanoTime() - start) / TIME_FRACTION
-
-        println("[Groovy 02 ! Array Sum]  Elapsed time: $end msecs ( Result: $result )")
+        (1..3).each { doBenchmark(it, App.&"benchFn$it", LIST) }
 
     }
 
