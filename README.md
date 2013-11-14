@@ -12,3 +12,4 @@ The current languages tested are:
 | Clojure     |                                 |
 | Python      | Python2, Python3, PyPy, Jython  |
 | Javascript  | Node                            |
+| Erlang      | Erlang R16B02                   |

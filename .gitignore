@@ -5,8 +5,9 @@ groovy_bench/.gradle
 java_bench/.gradle
 jython_bench/.gradle
 jython_bench/build/*
-
-
+erlang_bench/*.beam
+erlang_bench/*.dump
 scala_bench/build/*
 scala_bench/.gradle
 javascript_bench/node_modules
+*.swp

@@ -6,6 +6,7 @@ PYTHON2_BIN="/usr/bin/python2.7"
 PYTHON3_BIN="/usr/bin/python3.3"
 PYPY_BIN="/usr/bin/pypy"
 NODE_BIN="/usr/bin/node"
+ERLANG_BIN="/usr/bin/erl"
 
 
 echo "Building..."
@@ -14,6 +15,11 @@ echo "Building..."
 (cd clojure_bench; lein uberjar)
 (cd jython_bench; gradle uberjar)
 (cd javascript_bench; npm install)
+
+if [ -f $ERLANG_BIN ];
+then
+    (cd erlang_bench; erl -compile bench)
+fi
 
 echo "Benchmarking..."
 $JAVA_BIN $JAVA_OPTS -jar groovy_bench/build/libs/bench-1.0.jar
@@ -24,3 +30,8 @@ $PYTHON2_BIN python_bench/test.py
 $PYTHON3_BIN python_bench/test.py
 $PYPY_BIN python_bench/test.py
 (cd javascript_bench; $NODE_BIN test.js)
+
+if [ -f $ERLANG_BIN ];
+then
+    (cd erlang_bench ; erl -noshell -s bench main -s init stop)
+fi
