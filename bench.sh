@@ -19,6 +19,7 @@ echo "Building..."
 if [ -f $ERLANG_BIN ];
 then
     (cd erlang_bench; erl -compile bench)
+    (cd erlang_bench; erl -compile bench_parallel)
 fi
 
 echo "Benchmarking..."
@@ -34,4 +35,5 @@ $PYPY_BIN python_bench/test.py
 if [ -f $ERLANG_BIN ];
 then
     (cd erlang_bench ; erl -noshell -s bench main -s init stop)
+    (cd erlang_bench ; erl -noshell -s bench_parallel main -s init stop)
 fi
