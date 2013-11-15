@@ -3,18 +3,13 @@
 -export([main/0, benchmark/1]).
 
 % Calculate the aggregate of the sums of the sublists
-gatherAdd([Child|L]) ->
-    receive
-        {Child, Ret} -> Ret + gatherAdd(L)
-    end;
-gatherAdd([]) -> 0.
-
 benchmark(List) ->
-    S = self(),
+    Self = self(),
     Sum = fun(A,B)-> A + B end,
-    Accum = fun(Parent, L) -> Parent ! {self(), lists:foldr(Sum, 0, L)} end,
-    Pids = lists:map(fun(I)-> spawn(fun()->Accum(S, I) end) end, List),
-    gatherAdd(Pids).
+    ChildProcess = fun(Parent, ChildList) -> Parent ! lists:foldr(Sum, 0, ChildList) end,
+    Pids = lists:map(fun(Input)-> spawn(fun()->ChildProcess(Self, Input) end) end, List),
+    AccumulateChildResult = fun(_, Val) -> receive Ret -> Val + Ret end end,
+    lists:foldr(AccumulateChildResult, 0, Pids).
 
 % Generate a list of random intenger lists
 generate_list() ->
