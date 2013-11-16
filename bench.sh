@@ -7,6 +7,7 @@ PYTHON3_BIN="/usr/bin/python3.3"
 PYPY_BIN="/usr/bin/pypy"
 NODE_BIN="/usr/bin/node"
 ERLANG_BIN="/usr/bin/erl"
+CABAL_BIN="/usr/bin/cabal"
 
 
 echo "Building..."
@@ -20,6 +21,11 @@ if [ -f $ERLANG_BIN ];
 then
     (cd erlang_bench; erl -compile bench)
     (cd erlang_bench; erl -compile bench_parallel)
+fi
+
+if [ -f $CABAL_BIN ];
+then
+    (cd haskell_bench; cabal configure && cabal build)
 fi
 
 echo "Benchmarking..."
@@ -36,4 +42,9 @@ if [ -f $ERLANG_BIN ];
 then
     (cd erlang_bench ; erl -noshell -s bench main -s init stop)
     (cd erlang_bench ; erl -noshell -s bench_parallel main -s init stop)
+fi
+
+if [ -f $CABAL_BIN ];
+then
+    (cd haskell_bench; ./dist/build/haskell_bench/haskell_bench)
 fi

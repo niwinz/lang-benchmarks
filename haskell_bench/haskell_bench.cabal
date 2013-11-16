@@ -1,0 +1,14 @@
+name:                haskell-bench
+version:             0.1.0
+synopsis:            A simple benchmark of Haskell code
+author:              Alejandro Gómez
+maintainer:          alejandro@dialelo.com
+category:            Language
+build-type:          Simple
+cabal-version:       >=1.9.2
+
+executable haskell_bench
+  main-is:           Main.hs
+  build-depends:     base, random, vector, time
+  ghc-options:       -O2
+
