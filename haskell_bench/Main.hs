@@ -11,7 +11,8 @@ sumLists = sum . concat
 
 randomList :: IO [Integer]
 randomList = do g <- newStdGen
-                return $ take 500 $ randomRs (0, 100) g
+                let !rs = take 500 $ randomRs (0, 100) g
+                return rs
 
 showDiffTimeInMs dt = timeInMs ++ " msecs"
          where timeInMs = init . show $ 1000 * dt
