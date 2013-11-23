@@ -8,6 +8,7 @@ PYPY_BIN="/usr/bin/pypy"
 NODE_BIN="/usr/bin/node"
 ERLANG_BIN="/usr/bin/erl"
 CABAL_BIN="/usr/bin/cabal"
+ELIXIR_BIN="/usr/bin/elixir"
 
 
 echo "Building..."
@@ -48,3 +49,9 @@ if [ -f $CABAL_BIN ];
 then
     (cd haskell_bench; ./dist/build/haskell_bench/haskell_bench)
 fi
+
+if [ -f $ELIXIR_BIN ];
+then
+    (cd elixir_bench; elixir bench.ex)
+fi
+
