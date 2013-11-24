@@ -25,11 +25,11 @@ public class App {
         return list;
     }
 
-    static List<List<Integer>> getTestList() {
-        List<List<Integer>> list = new ArrayList<List<Integer>>(NUM_LISTS);
+    static List<List<Integer>> getTestList(Integer listSize, Integer numbersSize) {
+        List<List<Integer>> list = new ArrayList<List<Integer>>(listSize);
 
-        for(int i=0; i <= NUM_LISTS; i++) {
-            list.add(generateRandomList(NUM_NUMBERS));
+        for(int i=0; i <= listSize; i++) {
+            list.add(generateRandomList(numbersSize));
         }
 
         return list;
@@ -55,7 +55,7 @@ public class App {
     }
 
     public static void main(String[] args) {
-        List<List<Integer>> testList = getTestList();
+        List<List<Integer>> testList = getTestList(Integer.parseInt(args[0]), Integer.parseInt(args[1]));
         long start = System.nanoTime();
         App app = new App(testList);
         long total = app.calculateSum();

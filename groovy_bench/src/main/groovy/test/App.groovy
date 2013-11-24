@@ -3,9 +3,7 @@ package test
 import static System.nanoTime
 
 class App {
-
     static final TIME_FRACTION = 1000000.0
-    static final LIST = (1..50000).collect { new Random().nextInt(it + 1) }.collate(500)
 
     static Integer benchFn1(data) {
         return data*.sum().sum()
@@ -19,8 +17,20 @@ class App {
         return data.sum{ it.sum() }
     }
 
-    public static void main(String[] args) {
+    static List generateList(Integer listSize, Integer numbersSize) {
+        // (1 .. listSize).collect { new Random().nextInt(it + 1) }.collate(numbersSize)
+        def result = []
+        listSize.times {
+            def current = []
+            numbersSize.times {
+                current << new Random().nextInt(100)
+            }
+            result << current
+        }
+        return result
+    }
 
+    public static void main(String[] args) {
         def doBenchmark = { Integer order, Closure execution, List data ->
             def start = nanoTime()
             def result = execution(data)
@@ -28,8 +38,9 @@ class App {
             println "[Groovy $order ! Array Sum]  Elapsed time: $end msecs ( Result: $result )"
         }
 
-        (1..3).each { doBenchmark(it, App.&"benchFn$it", LIST) }
-
+        def list = generateList(Integer.parseInt(args[0]), Integer.parseInt(args[1]))
+        println list.size()
+        (1..3).each { doBenchmark(it, App.&"benchFn$it", list) }
     }
 
 }

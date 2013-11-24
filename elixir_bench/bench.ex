@@ -1,7 +1,7 @@
 defmodule Benchmark do
-    def generate_list() do
-        lc _ inlist Enum.to_list(0 .. 99) do
-            lc _ inlist Enum.to_list(0 .. 499) do
+    def generate_list(numberLists, numberItems) do
+        lc _ inlist Enum.to_list(0 .. numberLists) do
+            lc _ inlist Enum.to_list(0 .. numberItems) do
                :random.uniform(100)
             end
         end
@@ -15,11 +15,14 @@ defmodule Benchmark do
         calculate_list Enum.map input, &calculate_list/1
     end
 
-    def main do
-        list = generate_list()
+    def main(args) do
+        [arg1, arg2 | _] = args
+        {numberLists, _} = Integer.parse(arg1)
+        {numberItems, _} = Integer.parse(arg2)
+        list = generate_list(numberLists, numberItems)
         {elapsed, result} = :timer.tc(&do_bench/1, [list])
         IO.puts "[Elixir ! Array Sum] Elapsed time: #{elapsed/1000} msec ( Result: #{result} )"
     end
 end
 
-Benchmark.main
+Benchmark.main(System.argv())
