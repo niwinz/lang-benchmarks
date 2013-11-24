@@ -1,11 +1,11 @@
 microtime = require("microtime")
 _ = require("lodash")
 
-var generateList = function() {
+var generateList = function(listSize, numberSize) {
     var result = [];
-    _.each(_.range(0, 100), function(i) {
+    _.each(_.range(0, listSize), function(i) {
         var subresult = [];
-        _.each(_.range(0, 500), function(y) {
+        _.each(_.range(0, numberSize), function(y) {
             subresult.push(_.random(500));
         })
 
@@ -35,5 +35,7 @@ var benchFn1 = function(data) {
     return total;
 }
 
-var testData = generateList();
+var listSize = parseInt(process.argv[2]);
+var numberSize = parseInt(process.argv[3]);
+var testData = generateList(listSize, numberSize);
 bench("[NodeJS ! Array Sum]", benchFn1, testData);

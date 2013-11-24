@@ -10,6 +10,9 @@ ERLANG_BIN="/usr/bin/erl"
 CABAL_BIN="/usr/bin/cabal"
 ELIXIR_BIN="/usr/bin/elixir"
 
+LIST_SIZE=10000
+NUMBERS_SIZE=500
+
 
 echo "Building..."
 (cd groovy_bench; gradle build uberjar)
@@ -30,28 +33,28 @@ then
 fi
 
 echo "Benchmarking..."
-$JAVA_BIN $JAVA_OPTS -jar groovy_bench/build/libs/bench-1.0.jar
-$JAVA_BIN $JAVA_OPTS -jar java_bench/build/libs/bench-1.0.jar
-$JAVA_BIN $JAVA_OPTS -jar clojure_bench/target/clojure_bench-0.1.0-standalone.jar
-$JAVA_BIN $JAVA_OPTS -jar jython_bench/build/libs/bench-1.0.jar
-$PYTHON2_BIN python_bench/test.py
-$PYTHON3_BIN python_bench/test.py
-$PYPY_BIN python_bench/test.py
-(cd javascript_bench; $NODE_BIN test.js)
+$JAVA_BIN $JAVA_OPTS -jar groovy_bench/build/libs/bench-1.0.jar $LIST_SIZE $NUMBERS_SIZE
+$JAVA_BIN $JAVA_OPTS -jar java_bench/build/libs/bench-1.0.jar $LIST_SIZE $NUMBERS_SIZE
+$JAVA_BIN $JAVA_OPTS -jar clojure_bench/target/clojure_bench-0.1.0-standalone.jar $LIST_SIZE $NUMBERS_SIZE
+$JAVA_BIN $JAVA_OPTS -jar jython_bench/build/libs/bench-1.0.jar $LIST_SIZE $NUMBERS_SIZE
+$PYTHON2_BIN python_bench/test.py $LIST_SIZE $NUMBERS_SIZE
+$PYTHON3_BIN python_bench/test.py $LIST_SIZE $NUMBERS_SIZE
+$PYPY_BIN python_bench/test.py $LIST_SIZE $NUMBERS_SIZE
+(cd javascript_bench; $NODE_BIN test.js $LIST_SIZE $NUMBERS_SIZE)
 
 if [ -f $ERLANG_BIN ];
 then
-    (cd erlang_bench ; erl -noshell -s bench main -s init stop)
-    (cd erlang_bench ; erl -noshell -s bench_parallel main -s init stop)
+    (cd erlang_bench ; erl -noshell -s bench main $LIST_SIZE $NUMBERS_SIZE -s init stop)
+    (cd erlang_bench ; erl -noshell -s bench_parallel main $LIST_SIZE $NUMBERS_SIZE -s init stop)
 fi
 
 if [ -f $CABAL_BIN ];
 then
-    (cd haskell_bench; ./dist/build/haskell_bench/haskell_bench)
+    (cd haskell_bench; ./dist/build/haskell_bench/haskell_bench $LIST_SIZE $NUMBERS_SIZE)
 fi
 
 if [ -f $ELIXIR_BIN ];
 then
-    (cd elixir_bench; elixir bench.ex)
+    (cd elixir_bench; elixir bench.ex $LIST_SIZE $NUMBERS_SIZE)
 fi
 

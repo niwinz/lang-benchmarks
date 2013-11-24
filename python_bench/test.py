@@ -22,13 +22,13 @@ def bench(func):
         print("[{0}] Elapsed time: {1} msecs ( Result: {2} )".format(name, delta, result))
     return _wrapper
 
-
-test_list = [[random.randint(0,100) for x in range(500)] for y in range(100)]
+def generate_list(list_size, numbers_size):
+    return [[random.randint(0,100) for x in range(numbers_size)] for y in range(list_size)]
 
 @bench
-def bench_fn1():
+def bench_fn1(list_size, numbers_size):
     rdc = lambda x,y: x+functools.reduce(rdc, y, 0) if isinstance(y, list) else x+y
-    return functools.reduce(rdc, test_list, 0)
+    return functools.reduce(rdc, generate_list(list_size, numbers_size), 0)
 
 if __name__ == "__main__":
-    bench_fn1()
+    bench_fn1(int(sys.argv[1]), int(sys.argv[2]))

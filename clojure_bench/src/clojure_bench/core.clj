@@ -62,7 +62,9 @@
 (defn -main
   "I don't do a whole lot ... yet."
   [& args]
-  (let [test-list (make-calls 100 #(generate-random-list 500))]
+  (let [numberItems (read-string (first args))
+        numberLists (read-string (second args))
+        test-list (make-calls numberLists #(generate-random-list numberItems))]
     (bench "Clojure 01 ! Array Sum"
       (bench-fn1 test-list))
     (bench "Clojure 02 ! Array Sum"
