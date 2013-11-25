@@ -9,6 +9,6 @@ cabal-version:       >=1.9.2
 
 executable haskell_bench
   main-is:           Main.hs
-  build-depends:     base, random, time
+  build-depends:     base, random, time, cgi
   ghc-options:       -O2
 
