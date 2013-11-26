@@ -9,6 +9,7 @@ NODE_BIN="/usr/bin/node"
 ERLANG_BIN="/usr/bin/erl"
 CABAL_BIN="/usr/bin/cabal"
 ELIXIR_BIN="/usr/bin/elixir"
+RUST_BIN="/usr/bin/rust"
 
 LIST_SIZE=10000
 NUMBERS_SIZE=500
@@ -30,6 +31,11 @@ fi
 if [ -f $CABAL_BIN ];
 then
     (cd haskell_bench; cabal configure && cabal build)
+fi
+
+if [ -f $RUST_BIN ];
+then
+    (cd rust_bench; $RUST_BIN build bench.rs)
 fi
 
 echo "Benchmarking..."
@@ -56,5 +62,10 @@ fi
 if [ -f $ELIXIR_BIN ];
 then
     (cd elixir_bench; elixir bench.ex $LIST_SIZE $NUMBERS_SIZE)
+fi
+
+if [ -f $RUST_BIN ];
+then
+    ./rust_bench/bench $LIST_SIZE $NUMBERS_SIZE
 fi
 
