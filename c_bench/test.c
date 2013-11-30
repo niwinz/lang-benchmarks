@@ -33,6 +33,5 @@ int main(int argc, char *argv[]) {
     gettimeofday(&tv, NULL);
     t_end = tv.tv_sec + (tv.tv_usec / 1000000.0);
 
-    printf("[C 01 ! Array Sum] Elapsed time: %llg msecs (Result: %lld)\n", t_end - t_init, sum);
-
+    printf("[C 01 ! Array Sum] Elapsed time: %Lf msecs (Result: %lli)\n", t_end - t_init, sum);
 }

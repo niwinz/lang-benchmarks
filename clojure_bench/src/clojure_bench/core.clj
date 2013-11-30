@@ -1,4 +1,5 @@
 (ns clojure-bench.core
+  (:require [clojure.core.reducers :as r])
   (:gen-class))
 
 (defmacro bench
@@ -33,30 +34,19 @@
   (let [sum1  (map (fn [d] (apply + d)) data)]
     (apply + sum1)))
 
+
+;; (defn ^Integer bench-fn4
+;;   [data]
+;;   (let [reducer (fn
+;;                   ([] 0)
+;;                   ([x y] (+ (if (seq? y) (apply + y) y) x)))]
+;;     (r/fold reducer data)))
+
+
 (defn ^Integer bench-fn4
   [data]
-  (apply + (flatten data)))
+  (r/fold + (r/map #(apply + %) data)))
 
-(defn flatten2
-  "Like `clojure.core/flatten` but better, stronger, faster.
-  Takes any nested combination of sequential things (lists, vectors,
-  etc.) and returns their contents as a single, flat, lazy sequence.
-  If the argument is non-sequential (numbers, maps, strings, nil,
-  etc.), returns the original argument."
-  {:static true}
-  [x]
-  (letfn [(flat [coll]
-                  (lazy-seq
-                   (when-let [c (seq coll)]
-                     (let [x (first c)]
-                       (if (sequential? x)
-                         (concat (flat x) (flat (rest c)))
-                         (cons x (flat (rest c))))))))]
-    (if (sequential? x) (flat x) x)))
-
-(defn ^Integer bench-fn5
-  [data]
-  (apply + (flatten2 data)))
 
 
 (defn -main
@@ -72,6 +62,4 @@
     (bench "Clojure 03 ! Array Sum"
       (bench-fn3 test-list))
     (bench "Clojure 04 ! Array Sum"
-      (bench-fn4 test-list))
-    (bench "Clojure 05 ! Array Sum"
-      (bench-fn5 test-list))))
+      (bench-fn4 test-list))))
