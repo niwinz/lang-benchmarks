@@ -10,6 +10,7 @@ ERLANG_BIN="/usr/bin/erl"
 CABAL_BIN="/usr/bin/cabal"
 ELIXIR_BIN="/usr/bin/elixir"
 RUST_BIN="/usr/bin/rust"
+C_BIN="/usr/bin/gcc"
 
 LIST_SIZE=10000
 NUMBERS_SIZE=500
@@ -39,6 +40,7 @@ then
 fi
 
 echo "Benchmarking..."
+
 $JAVA_BIN $JAVA_OPTS -jar groovy_bench/build/libs/bench-1.0.jar $LIST_SIZE $NUMBERS_SIZE
 $JAVA_BIN $JAVA_OPTS -jar java_bench/build/libs/bench-1.0.jar $LIST_SIZE $NUMBERS_SIZE
 $JAVA_BIN $JAVA_OPTS -jar clojure_bench/target/clojure_bench-0.1.0-standalone.jar $LIST_SIZE $NUMBERS_SIZE
@@ -67,5 +69,10 @@ fi
 if [ -f $RUST_BIN ];
 then
     ./rust_bench/bench $LIST_SIZE $NUMBERS_SIZE
+fi
+
+if [ -f $C_BIN ];
+then
+    (cd c_bench; gcc -std=c11 test.c -o test; ./test $LIST_SIZE $NUMBERS_SIZE)
 fi
 
