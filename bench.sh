@@ -9,6 +9,7 @@ NODE_BIN="/usr/bin/node"
 ERLANG_BIN="/usr/bin/erl"
 CABAL_BIN="/usr/bin/cabal"
 ELIXIR_BIN="/usr/bin/elixir"
+C_BIN="/usr/bin/gcc"
 
 LIST_SIZE=10000
 NUMBERS_SIZE=500
@@ -56,5 +57,10 @@ fi
 if [ -f $ELIXIR_BIN ];
 then
     (cd elixir_bench; elixir bench.ex $LIST_SIZE $NUMBERS_SIZE)
+fi
+
+if [ -f $C_BIN ];
+then
+    (cd c_bench; gcc -std=c11 test.c -o test; ./test $LIST_SIZE $NUMBERS_SIZE)
 fi
 

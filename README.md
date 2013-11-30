@@ -7,6 +7,7 @@ The current languages tested are:
 
 | Language    | Interpreter                     |
 |-------------|---------------------------------|
+| C           | gcc C11                         |
 | Groovy      |                                 |
 | Java        |                                 |
 | Clojure     |                                 |
