@@ -8,9 +8,13 @@ The current languages tested are:
 | Language    | Interpreter                     |
 |-------------|---------------------------------|
 | C           | gcc C11                         |
-| Groovy      |                                 |
-| Java        |                                 |
 | Clojure     |                                 |
-| Python      | Python2, Python3, PyPy, Jython  |
-| Javascript  | Node                            |
+| Elixirg     |                                 |
 | Erlang      | Erlang R16B02                   |
+| Groovy      |                                 |
+| Haskel      |                                 |
+| Java        |                                 |
+| Javascript  | Node                            |
+| Python      | Python2, Python3, PyPy, Jython  |
+| Scala       |                                 |
+
