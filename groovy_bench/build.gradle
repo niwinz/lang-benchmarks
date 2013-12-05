@@ -18,7 +18,11 @@ repositories {
 }
 
 dependencies {
-    compile 'org.codehaus.groovy:groovy-all:2.1.7'
+    compile 'org.codehaus.groovy:groovy-all:2.2.1:indy'
+}
+
+tasks.withType(GroovyCompile) {
+    groovyOptions.optimizationOptions.indy = true
 }
 
 task uberjar(type: Jar) {
