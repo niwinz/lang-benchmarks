@@ -1,6 +1,8 @@
 package test
 
 import static System.nanoTime
+import groovyx.gpars.GParsPool
+
 
 class App {
     static final TIME_FRACTION = 1000000.0
@@ -14,7 +16,19 @@ class App {
     }
 
     static Integer benchFn3(data) {
-        return data.sum{ it.sum() }
+        return data.sum { it.sum() }
+    }
+
+    static Integer benchFn4(data) {
+        return GParsPool.withPool(1) {
+            data*.sumParallel().sumParallel()
+        }
+    }
+
+    static Integer benchFn5(data) {
+        return GParsPool.withPool(1) {
+            data.flatten().sumParallel()
+        }
     }
 
     static List generateList(Integer listSize, Integer numbersSize) {
@@ -40,7 +54,7 @@ class App {
 
         def list = generateList(Integer.parseInt(args[0]), Integer.parseInt(args[1]))
         println list.size()
-        (1..3).each { doBenchmark(it, App.&"benchFn$it", list) }
+        (1..5).each { doBenchmark(it, App.&"benchFn$it", list) }
     }
 
 }
