@@ -41,6 +41,16 @@ class App {
         return value
     }
 
+    static Integer benchFn7(data) {
+        int value = 0
+        for(i in data) {
+            for (j in i) {
+                value += j
+            }
+        }
+        return value
+    }
+
     static List generateList(Integer listSize, Integer numbersSize) {
         // (1 .. listSize).collect { new Random().nextInt(it + 1) }.collate(numbersSize)
         def result = []
@@ -64,7 +74,7 @@ class App {
 
         def list = generateList(Integer.parseInt(args[0]), Integer.parseInt(args[1]))
         println list.size()
-        (1..6).each { doBenchmark(it, App.&"benchFn$it", list) }
+        (1..7).each { doBenchmark(it, App.&"benchFn$it", list) }
     }
 
 }
