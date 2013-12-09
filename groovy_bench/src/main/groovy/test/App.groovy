@@ -73,7 +73,6 @@ class App {
         }
 
         def list = generateList(Integer.parseInt(args[0]), Integer.parseInt(args[1]))
-        println list.size()
         (1..7).each { doBenchmark(it, App.&"benchFn$it", list) }
     }
 
