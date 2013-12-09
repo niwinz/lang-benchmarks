@@ -14,3 +14,5 @@ haskell_bench/dist/*
 rust_bench/bench
 rust_bench/bench~
 *.swp
+c_bench/gcc_test
+go_bench/bench

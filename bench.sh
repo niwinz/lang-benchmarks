@@ -13,6 +13,7 @@ ERLANG_BIN="/usr/bin/erl"
 CABAL_BIN="/usr/bin/cabal"
 ELIXIR_BIN="/usr/bin/elixir"
 RUST_BIN="/usr/bin/rust"
+GO_BIN="/usr/bin/go"
 
 CFLAGS="-O3 -funroll-all-loops -std=c11"
 GCC_BIN="/usr/bin/gcc"
@@ -65,6 +66,11 @@ fi
 if [ -f $CLANG_BIN ];
 then
     (cd c_bench; $CLANG_BIN $CFLAGS test.c -o clang_test)
+fi
+
+if [ -f $GO_BIN ];
+then
+    (cd go_bench; $GO_BIN build bench.go)
 fi
 
 echo "Benchmarking..."
@@ -131,4 +137,9 @@ fi
 if [ -f $CLANG_BIN ];
 then
     (cd c_bench; ./clang_test $LIST_SIZE $NUMBER_LISTS)
+fi
+
+if [ -f $GO_BIN ];
+then
+    (cd go_bench; ./bench $LIST_SIZE $NUMBER_LISTS)
 fi
