@@ -32,7 +32,7 @@ func doBenchmark(benchList [][]int) int {
 
 func main() {
     listSize, _ := strconv.Atoi(os.Args[1])
-    numberLists, _ := strconv.Atoi(os.Args[1])
+    numberLists, _ := strconv.Atoi(os.Args[2])
 
     list := generateLists(listSize, numberLists)
     before := time.Now()
