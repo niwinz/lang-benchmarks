@@ -34,20 +34,9 @@
   (let [sum1  (map (fn [d] (apply + d)) data)]
     (apply + sum1)))
 
-
-;; (defn ^Integer bench-fn4
-;;   [data]
-;;   (let [reducer (fn
-;;                   ([] 0)
-;;                   ([x y] (+ (if (seq? y) (apply + y) y) x)))]
-;;     (r/fold reducer data)))
-
-
 (defn ^Integer bench-fn4
   [data]
   (r/fold + (r/map #(apply + %) data)))
-
-
 
 (defn -main
   "I don't do a whole lot ... yet."
